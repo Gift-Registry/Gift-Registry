@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.gift.registry.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +18,7 @@ public class Delivery implements Serializable {
     private Long delivery_id;
     
     @ManyToOne
-    private Registry registry;
+    private ProductOccasion productOccasion;
     
     @Embedded
     private DeliveryAddress deliveryAddress;
@@ -39,52 +32,52 @@ public class Delivery implements Serializable {
     private Delivery(Builder builder) {
         id = builder.id;
         delivery_id = builder.delivery_id;
-        registry = builder.registry;
+        productOccasion = builder.productOccasion;
         deliveryAddress = builder.deliveryAddress;
         customerDetails = builder.customerDetails;
     }
 
     public static class Builder {
-        private Long id;
-        private Long delivery_id;
-        private Registry registry;
-        private DeliveryAddress deliveryAddress;
-        private CustomerDetails customerDetails;
+       private Long id;
+       private Long delivery_id;
+       private ProductOccasion productOccasion;
+       private DeliveryAddress deliveryAddress;
+       private CustomerDetails customerDetails;
     
-        public Builder id(Long value) {
-            this.id = value;
-            return this;
-        }
+       public Builder id(Long value) {
+           this.id = value;
+           return this;
+       }
 
-        public Builder delivery_id(Long value) {
-            this.delivery_id = value;
-            return this;
-        }
+       public Builder delivery_id(Long value) {
+           this.delivery_id = value;
+           return this;
+       }
 
-        public Builder registry(Registry value) {
-            this.registry = value;
-            return this;
-        }
+       public Builder productOccasion(ProductOccasion value) {
+           this.productOccasion = value;
+           return this;
+       }
         
-        public Builder deliveryAddress(DeliveryAddress value) {
-            this.deliveryAddress = value;
-            return this;
-        }
-        
-        public Builder customerDetails(CustomerDetails value) {
-            this.customerDetails = value;
-            return this;
-        }
+       public Builder deliveryAddress(DeliveryAddress value) {
+           this.deliveryAddress = value;
+           return this;
+       }
+       
+       public Builder customerDetails(CustomerDetails value) {
+           this.customerDetails = value;
+           return this;
+       }
 
-        public Builder Delivery(Delivery delivery){
-            id = delivery.getId();
-            delivery_id = delivery.getDelivery_id();
-            registry = delivery.getRegistry();
-            deliveryAddress = delivery.getDeliveryAddress();
-            customerDetails = delivery.getCustomerDetails();
-            
-            return this;   
-        }
+       public Builder Delivery(Delivery delivery){
+           id = delivery.getId();
+           delivery_id = delivery.getDelivery_id();
+           productOccasion = delivery.getProductOccasion();
+           deliveryAddress = delivery.getDeliveryAddress();
+           customerDetails = delivery.getCustomerDetails();
+           
+           return this;   
+       }
         
         public Delivery build(){
             return new Delivery(this);
@@ -99,10 +92,10 @@ public class Delivery implements Serializable {
         return delivery_id;
     }
 
-    public Registry getRegistry() {
-        return registry;
+    public ProductOccasion getProductOccasion() {
+        return productOccasion;
     }
-
+    
     public DeliveryAddress getDeliveryAddress() {
         return deliveryAddress;
     }

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.gift.registry.domain;
 
 import java.io.Serializable;
@@ -28,7 +22,7 @@ public class Occasion implements Serializable {
     private Date occasion_date;
     
     @ManyToOne
-    private Registry registry;
+    private ProductOccasion productOccasion;
 
     public Occasion() {
     }
@@ -38,7 +32,7 @@ public class Occasion implements Serializable {
         occasion_id = builder.occasion_id;
         occasion_name = builder.occasion_name;
         occasion_date = builder.occasion_date;
-        registry = builder.registry;
+        productOccasion = builder.productOccasion;
     }
 
     public static class Builder {
@@ -46,10 +40,10 @@ public class Occasion implements Serializable {
         private Long occasion_id;
         private String occasion_name;
         private Date occasion_date;
-        private Registry registry;
+        private ProductOccasion productOccasion;
     
         public Builder id(Long value) {
-            id = value;
+            this.id = value;
             return this;
         }
 
@@ -59,26 +53,26 @@ public class Occasion implements Serializable {
         }
 
         public Builder occasion_name(String value) {
-            occasion_name = value;
+            this.occasion_name = value;
             return this;
         }
         
         public Builder occasion_date(Date value) {
-            occasion_date = value;
+            this.occasion_date = value;
             return this;
         }
         
-        public Builder registry(Registry value) {
-            registry = value;
+        public Builder productOccasion(ProductOccasion value) {
+            this.productOccasion = value;
             return this;
         }
 
         public Builder Occasion(Occasion occasion){
-            id = occasion.getId();
-            occasion_id = occasion.getOccasion_id();
-            occasion_name = occasion.getOccasion_name();
-            occasion_date = occasion.getOccasion_date();
-            registry = occasion.getRegistry();
+            this.id = occasion.getId();
+            this.occasion_id = occasion.getOccasion_id();
+            this.occasion_name = occasion.getOccasion_name();
+            this.occasion_date = occasion.getOccasion_date();
+            productOccasion = occasion.getProductOccasion();
             
             return this;   
         }
@@ -100,8 +94,8 @@ public class Occasion implements Serializable {
         return occasion_date;
     }
 
-    public Registry getRegistry() {
-        return registry;
+    public ProductOccasion getProductOccasion() {
+        return productOccasion;
     }
 
     public Long getId() {

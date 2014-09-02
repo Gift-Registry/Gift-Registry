@@ -2,11 +2,15 @@ package com.gift.registry.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 @Entity
@@ -21,7 +25,11 @@ public class Invoice implements Serializable {
     private String invoice_number;
     
     @ManyToOne
-    private Registry registry;
+    private ProductOccasion productOccasion;
+    
+    @OneToMany(orphanRemoval=true,cascade= CascadeType.ALL)
+    @JoinColumn(name = "invoiceItem_id")
+    private List<InvoiceItem> invoiceItems;
     
     public Invoice() {
     }
@@ -30,14 +38,16 @@ public class Invoice implements Serializable {
         id= builder.id;
         invoice_date = builder.invoice_date;
         invoice_number = builder.invoice_number;
-        registry = builder.registry;
+        productOccasion = builder.productOccasion;
+        invoiceItems = builder.invoiceItems;
        }
 
     public static class Builder {
         private Long id;
         private Date invoice_date;
         private String invoice_number;
-        private Registry registry;
+        private ProductOccasion productOccasion;
+        private List<InvoiceItem> invoiceItems;
 
         public Builder id(Long value) {
             id = value;
@@ -54,8 +64,13 @@ public class Invoice implements Serializable {
             return this;
         }
         
-        public Builder registry(Registry value) {
-            registry = value;
+        public Builder productOccasion(ProductOccasion value) {
+            productOccasion = value;
+            return this;
+        }
+        
+        public Builder invoiceItems(List<InvoiceItem> value) {
+            this.invoiceItems = value;
             return this;
         }
 
@@ -63,7 +78,8 @@ public class Invoice implements Serializable {
             id = invoice.getId();
             invoice_date = invoice.getInvoice_date();
             invoice_number = invoice.getInvoice_number();
-            registry = invoice.getRegistry();
+            productOccasion = invoice.getProductOccasion();
+            invoiceItems = invoice.getInvoiceItems();
             
             return this;   
         }
@@ -85,10 +101,14 @@ public class Invoice implements Serializable {
         return invoice_number;
     }
 
-    public Registry getRegistry() {
-        return registry;
+    public ProductOccasion getProductOccasion() {
+        return productOccasion;
     }
 
+    public List<InvoiceItem> getInvoiceItems() {
+        return invoiceItems;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

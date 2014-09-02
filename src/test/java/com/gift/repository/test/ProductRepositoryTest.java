@@ -2,7 +2,6 @@ package com.gift.repository.test;
 
 import com.gift.registry.app.conf.ConnectionConfig;
 import com.gift.registry.domain.Product;
-import com.gift.registry.domain.ProductDetails;
 import com.gift.registry.repository.ProductRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -24,13 +23,9 @@ public class ProductRepositoryTest {
     @Test
     public void createProduct() {
         productRepository = ctx.getBean(ProductRepository.class);
-        ProductDetails productDetails = new ProductDetails();
-        productDetails.setProductname("Filter Coffee Maker");
-        productDetails.setPrice(799);
-        productDetails.setColour("Silver");
-        productDetails.setQuantity(2);
         
-        Product product = new Product.Builder().product_id(1).productDetails(productDetails).build();
+        Product product = new Product.Builder().product_id("1").productname("Filter Coffee Maker").quantity(2).price(799)
+                .colour("Black").build();
          
         productRepository.save(product);
         
@@ -43,7 +38,7 @@ public class ProductRepositoryTest {
         productRepository = ctx.getBean(ProductRepository.class);
         Product product = productRepository.findOne(id);
         
-        Assert.assertEquals(product.getProduct_id(), 1);
+        Assert.assertEquals(product.getProduct_id(), "1");
         System.out.println("Product  id: " + product.getProduct_id());
     }
     
@@ -52,13 +47,8 @@ public class ProductRepositoryTest {
         productRepository = ctx.getBean(ProductRepository.class);
         Product product = productRepository.findOne(id);
         
-        ProductDetails productDetails = new ProductDetails();
-        productDetails.setProductname("Filter Coffee Maker");
-        productDetails.setPrice(799);
-        productDetails.setColour("Black");
-        productDetails.setQuantity(1);
-     
-        Product updatedProduct = new Product.Builder().Product(product).product_id(1).productDetails(productDetails).build();
+        Product updatedProduct = new Product.Builder().Product(product).product_id("1").productname("Filter Coffee Maker").quantity(4).price(799)
+                .colour("Black").build();
         
         productRepository.save(updatedProduct);
         
@@ -66,7 +56,7 @@ public class ProductRepositoryTest {
         
         System.out.println("New Product: " + newProduct);
         
-        Assert.assertEquals(newProduct.getProductDetails().getColour(), "Black");
+        Assert.assertEquals(newProduct.getQuantity(), 4);
      }   
     
     @Test(priority = 4, dependsOnMethods = "updateProduct", enabled = true)

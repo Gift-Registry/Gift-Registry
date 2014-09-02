@@ -15,60 +15,90 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    private int product_id;
+    private String product_id;
+    private String occasion_id;
+    private String productname;
+    private int quantity;
+    private int price;
+    private String colour;
    
     @ManyToOne
-    private Registry registry;
-    
-    @Embedded
-    private ProductDetails productDetails;
-    
+    private ProductOccasion productOccasion;
+       
     public Product() {
     }
     
     private Product(Builder builder) {
         id = builder.id;
         product_id = builder.product_id;
-        registry = builder.registry;
-        productDetails = builder.productDetails;
-    }
-
-    public ProductDetails getProductDetails() {
-        return productDetails;
+        occasion_id = builder.occasion_id;
+        productname = builder.productname;
+        quantity  = builder.quantity;
+        price = builder.price;
+        colour = builder.colour;
+        productOccasion = builder.productOccasion;
     }
 
     public static class Builder {
         private Long id;
-        private int product_id;
-        private Registry registry;
-        private ProductDetails productDetails;
+        private String product_id;
+        private String occasion_id;
+        private String productname;
+        private int quantity;
+        private int price;
+        private String colour;
+        private ProductOccasion productOccasion;
     
         public Builder id(Long value) {
             this.id = value;
             return this;
         }
 
-        public Builder product_id(int value) {
+        public Builder product_id(String value) {
             this.product_id = value;
             return this;
         }
 
-        public Builder registry(Registry value) {
-            this.registry = value;
+        public Builder occasion_id(String value) {
+            this.occasion_id = value;
             return this;
         }
         
-        public Builder productDetails(ProductDetails value) {
-            this.productDetails = value;
+        public Builder productname(String value) {
+            this.productname = value;
+            return this;
+        }
+        
+        public Builder quantity(int value) {
+            this.quantity = value;
+            return this;
+        }
+        
+        public Builder price(int value) {
+            this.price = value;
+            return this;
+        }
+        
+        public Builder colour(String value) {
+            this.colour = value;
+            return this;
+        }
+        
+        public Builder productOccasion(ProductOccasion value) {
+            this.productOccasion = value;
             return this;
         }
 
         public Builder Product(Product product){
-            id = product.getId();
-            product_id = product.getProduct_id();
-            registry = product.getRegistry();
-            productDetails = product.getProductDetails();
-
+            this.id = product.getId();
+            this.product_id = product.getProduct_id();
+            this.occasion_id = product.getOccasion_id();
+            this.productname = product.getProductname();
+            this.quantity = product.getQuantity();
+            this.price = product.getPrice();
+            this.colour = product.getColour();
+            this.productOccasion = product.getProductOccasion();
+            
             return this;   
         }
         
@@ -77,14 +107,34 @@ public class Product implements Serializable {
         }
     }
 
-    public int getProduct_id() {
+    public String getProduct_id() {
         return product_id;
     }
 
-    public Registry getRegistry() {
-        return registry;
+    public String getOccasion_id() {
+        return occasion_id;
     }
 
+    public String getProductname() {
+        return productname;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
+    public ProductOccasion getProductOccasion() {
+        return productOccasion;
+    }
+    
     public Long getId() {
         return id;
     }
