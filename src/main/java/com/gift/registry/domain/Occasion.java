@@ -2,11 +2,14 @@ package com.gift.registry.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 @Entity
@@ -16,38 +19,39 @@ public class Occasion implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    private Long occasion_id;
-    private String occasion_name;
+    private String occasionId;
+    private String occasionName;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date occasion_date;
+    private Date occasionDate;
     
-    @ManyToOne
-    private ProductOccasion productOccasion;
+    @OneToMany(orphanRemoval=true,cascade= CascadeType.ALL)
+    @JoinColumn(name = "occasion_id")
+    private List<Product> products;
 
     public Occasion() {
     }
     
     private Occasion(Builder builder) {
         id= builder.id;
-        occasion_id = builder.occasion_id;
-        occasion_name = builder.occasion_name;
-        occasion_date = builder.occasion_date;
-        productOccasion = builder.productOccasion;
+        occasionId = builder.occasion_id;
+        occasionName = builder.occasion_name;
+        occasionDate = builder.occasion_date;
+        products = builder.products;
     }
 
     public static class Builder {
         private Long id;
-        private Long occasion_id;
+        private String occasion_id;
         private String occasion_name;
         private Date occasion_date;
-        private ProductOccasion productOccasion;
+        private List<Product> products;
     
         public Builder id(Long value) {
             this.id = value;
             return this;
         }
 
-        public Builder occasion_id(Long value) {
+        public Builder occasion_id(String value) {
             occasion_id = value;
             return this;
         }
@@ -62,8 +66,8 @@ public class Occasion implements Serializable {
             return this;
         }
         
-        public Builder productOccasion(ProductOccasion value) {
-            this.productOccasion = value;
+        public Builder products(List<Product> value) {
+            this.products = value;
             return this;
         }
 
@@ -72,7 +76,7 @@ public class Occasion implements Serializable {
             this.occasion_id = occasion.getOccasion_id();
             this.occasion_name = occasion.getOccasion_name();
             this.occasion_date = occasion.getOccasion_date();
-            productOccasion = occasion.getProductOccasion();
+            this.products = occasion.getProducts();
             
             return this;   
         }
@@ -82,21 +86,22 @@ public class Occasion implements Serializable {
         }
     }
 
-    public Long getOccasion_id() {
-        return occasion_id;
+    public String getOccasion_id() {
+        return occasionId;
     }
 
     public String getOccasion_name() {
-        return occasion_name;
+        return occasionName;
     }
 
     public Date getOccasion_date() {
-        return occasion_date;
+        return occasionDate;
     }
 
-    public ProductOccasion getProductOccasion() {
-        return productOccasion;
+    public List<Product> getProducts() {
+        return products;
     }
+
 
     public Long getId() {
         return id;

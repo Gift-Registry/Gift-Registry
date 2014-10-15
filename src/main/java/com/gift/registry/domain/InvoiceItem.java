@@ -2,13 +2,10 @@ package com.gift.registry.domain;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
 @Entity
 public class InvoiceItem implements Serializable {
@@ -18,18 +15,13 @@ public class InvoiceItem implements Serializable {
     private Long id;
     
     private int quantity;
-    
-    @OneToMany(orphanRemoval=true,cascade= CascadeType.ALL)
-    @JoinColumn(name = "product_id")
-    private List<Product> products;
-
+   
     public InvoiceItem() {
     }
     
      private InvoiceItem(Builder builder) {
         id = builder.id;
         quantity = builder.quantity;
-        products = builder.products;
     }
 
     public static class Builder {
@@ -46,16 +38,10 @@ public class InvoiceItem implements Serializable {
             this.quantity = value;
             return this;
         }
-        
-        public Builder products(List<Product> value) {
-            this.products = value;
-            return this;
-        }
-
+       
         public Builder InvoiceItem(InvoiceItem invoiceItem){
             this.id = invoiceItem.getId();
             this.quantity = invoiceItem.getQuantity();
-            this.products = invoiceItem.getProducts();
             
             return this;   
         }
@@ -67,10 +53,6 @@ public class InvoiceItem implements Serializable {
 
     public int getQuantity() {
         return quantity;
-    }
-
-    public List<Product> getProducts() {
-        return products;
     }
 
     public Long getId() {

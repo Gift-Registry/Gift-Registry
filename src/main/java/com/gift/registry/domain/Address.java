@@ -9,7 +9,7 @@ package com.gift.registry.domain;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class DeliveryAddress {
+public class Address {
     private int house_number;
     private String street_address;
     private String suburb;

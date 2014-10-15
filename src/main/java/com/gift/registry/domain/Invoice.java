@@ -21,11 +21,11 @@ public class Invoice implements Serializable {
     private Long id;
     
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date invoice_date;
-    private String invoice_number;
+    private Date invoiceDate;
+    private String invoiceNumber;
     
     @ManyToOne
-    private ProductOccasion productOccasion;
+    private Inventory inventory;
     
     @OneToMany(orphanRemoval=true,cascade= CascadeType.ALL)
     @JoinColumn(name = "invoiceItem_id")
@@ -36,9 +36,9 @@ public class Invoice implements Serializable {
     
     private Invoice(Builder builder) {
         id= builder.id;
-        invoice_date = builder.invoice_date;
-        invoice_number = builder.invoice_number;
-        productOccasion = builder.productOccasion;
+        invoiceDate = builder.invoice_date;
+        invoiceNumber = builder.invoice_number;
+        inventory = builder.inventory;
         invoiceItems = builder.invoiceItems;
        }
 
@@ -46,7 +46,7 @@ public class Invoice implements Serializable {
         private Long id;
         private Date invoice_date;
         private String invoice_number;
-        private ProductOccasion productOccasion;
+        private Inventory inventory;
         private List<InvoiceItem> invoiceItems;
 
         public Builder id(Long value) {
@@ -64,8 +64,8 @@ public class Invoice implements Serializable {
             return this;
         }
         
-        public Builder productOccasion(ProductOccasion value) {
-            productOccasion = value;
+        public Builder inventory(Inventory value) {
+            inventory = value;
             return this;
         }
         
@@ -78,7 +78,7 @@ public class Invoice implements Serializable {
             id = invoice.getId();
             invoice_date = invoice.getInvoice_date();
             invoice_number = invoice.getInvoice_number();
-            productOccasion = invoice.getProductOccasion();
+            inventory = invoice.getInventory();
             invoiceItems = invoice.getInvoiceItems();
             
             return this;   
@@ -94,15 +94,15 @@ public class Invoice implements Serializable {
     }
     
     public Date getInvoice_date() {
-        return invoice_date;
+        return invoiceDate;
     }
 
     public String getInvoice_number() {
-        return invoice_number;
+        return invoiceNumber;
     }
 
-    public ProductOccasion getProductOccasion() {
-        return productOccasion;
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public List<InvoiceItem> getInvoiceItems() {

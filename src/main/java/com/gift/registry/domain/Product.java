@@ -1,7 +1,6 @@
 package com.gift.registry.domain;
 
 import java.io.Serializable;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,14 +15,13 @@ public class Product implements Serializable {
     private Long id;
     
     private String product_id;
-    private String occasion_id;
-    private String productname;
+    private String productName;
     private int quantity;
     private int price;
     private String colour;
    
     @ManyToOne
-    private ProductOccasion productOccasion;
+    private Inventory inventory;
        
     public Product() {
     }
@@ -31,23 +29,21 @@ public class Product implements Serializable {
     private Product(Builder builder) {
         id = builder.id;
         product_id = builder.product_id;
-        occasion_id = builder.occasion_id;
-        productname = builder.productname;
+        productName = builder.productname;
         quantity  = builder.quantity;
         price = builder.price;
         colour = builder.colour;
-        productOccasion = builder.productOccasion;
+        inventory = builder.inventory;
     }
 
     public static class Builder {
         private Long id;
         private String product_id;
-        private String occasion_id;
         private String productname;
         private int quantity;
         private int price;
         private String colour;
-        private ProductOccasion productOccasion;
+        private Inventory inventory;
     
         public Builder id(Long value) {
             this.id = value;
@@ -56,11 +52,6 @@ public class Product implements Serializable {
 
         public Builder product_id(String value) {
             this.product_id = value;
-            return this;
-        }
-
-        public Builder occasion_id(String value) {
-            this.occasion_id = value;
             return this;
         }
         
@@ -84,20 +75,19 @@ public class Product implements Serializable {
             return this;
         }
         
-        public Builder productOccasion(ProductOccasion value) {
-            this.productOccasion = value;
+        public Builder inventory(Inventory value) {
+            this.inventory = value;
             return this;
         }
 
         public Builder Product(Product product){
             this.id = product.getId();
             this.product_id = product.getProduct_id();
-            this.occasion_id = product.getOccasion_id();
             this.productname = product.getProductname();
             this.quantity = product.getQuantity();
             this.price = product.getPrice();
             this.colour = product.getColour();
-            this.productOccasion = product.getProductOccasion();
+            this.inventory = product.getInventory();
             
             return this;   
         }
@@ -111,12 +101,8 @@ public class Product implements Serializable {
         return product_id;
     }
 
-    public String getOccasion_id() {
-        return occasion_id;
-    }
-
     public String getProductname() {
-        return productname;
+        return productName;
     }
 
     public int getQuantity() {
@@ -131,10 +117,10 @@ public class Product implements Serializable {
         return colour;
     }
 
-    public ProductOccasion getProductOccasion() {
-        return productOccasion;
+    public Inventory getInventory() {
+        return inventory;
     }
-    
+
     public Long getId() {
         return id;
     }
